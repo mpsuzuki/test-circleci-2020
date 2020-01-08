@@ -32,7 +32,6 @@ jobs:
             rm skia-m70-clang-on-win64_20191128-2210.tar.xz
             .\7za.exe x skia-m70-clang-on-win64_20191128-2210.tar
             rm skia-m70-clang-on-win64_20191128-2210.tar
-            mv svg-native-viewer\third_party\skia svg-native-viewer\third_party\skia-empty
             mv skia-m70-clang-on-win64 svg-native-viewer\third_party\skia
       - run:
           name: Installing CMake
