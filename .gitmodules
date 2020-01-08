@@ -1,0 +1,4 @@
+[submodule "svg-native-viewer"]
+	path = svg-native-viewer
+	url = https://github.com/mpsuzuki/svg-native-viewer.git
+	branch = skia-2020
