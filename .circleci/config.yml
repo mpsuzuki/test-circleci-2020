@@ -60,7 +60,7 @@ jobs:
             $env:BOOST_ROOT = $boostDir + "boost"
             $cmakeVersion = "3.16.2"
             $env:Path += ";" + (Get-Item -Path ".\").FullName + "\cmake-" + $cmakeVersion + "-win64-x64\bin"
-            cd .\svgnative
+            cd .\svg-native-viewer\svgnative
             cmake -Bbuild/win-shared . -G "Visual Studio 16 2019" -DGDIPLUS=ON -DSKIA=ON -DSHARED=ON
       - run:
           name: Creating Binary Files - Shared Lib
@@ -70,7 +70,7 @@ jobs:
             $env:BOOST_ROOT = $boostDir + "boost"
             $cmakeVersion = "3.16.2"
             $env:Path += ";" + (Get-Item -Path ".\").FullName + "\cmake-" + $cmakeVersion + "-win64-x64\bin"
-            cd .\svgnative
+            cd .\svg-native-viewer\svgnative
             cmake --build build/win-shared
 #
 #  build_linux:
