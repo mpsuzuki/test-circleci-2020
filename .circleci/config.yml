@@ -25,13 +25,13 @@ jobs:
             $url1 = "https://home.hiroshima-u.ac.jp/mpsuzuki/7z/x64/7za.exe"
             $save1 = (Join-Path $absCurDir "7za.exe")
             (New-Object System.Net.WebClient).DownloadFile($url1, $save1)
-            $url2 = "https://github.com/mpsuzuki/skia-binaries/releases/download/m70-win64-20191128/skia-m70-clang-on-win64_20191128-2210.tar.xz"
-            $save2 = (Join-Path $absCurDir "skia-m70-clang-on-win64_20191128-2210.tar.xz")
+            $url2 = "https://github.com/mpsuzuki/skia-binaries/releases/download/m70-win64-20191207/skia-m70-clang-on-win64_20191207-1815.tar.xz"
+            $save2 = (Join-Path $absCurDir "skia-m70-clang-on-win64_20191207-1857.tar.xz")
             (New-Object System.Net.WebClient).DownloadFile($url2, $save2)
-            .\7za.exe x skia-m70-clang-on-win64_20191128-2210.tar.xz
-            rm skia-m70-clang-on-win64_20191128-2210.tar.xz
-            .\7za.exe x skia-m70-clang-on-win64_20191128-2210.tar
-            rm skia-m70-clang-on-win64_20191128-2210.tar
+            .\7za.exe x skia-m70-clang-on-win64_20191207-1857.tar.xz
+            rm skia-m70-clang-on-win64_20191207-1857.tar.xz
+            .\7za.exe x skia-m70-clang-on-win64_20191207-1857.tar
+            rm skia-m70-clang-on-win64_20191207-1857.tar
             mv skia-m70-clang-on-win64 svg-native-viewer\third_party\skia
       - run:
           name: Installing CMake
