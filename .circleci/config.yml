@@ -44,15 +44,6 @@ jobs:
             (New-Object System.Net.WebClient).DownloadFile($url, $outputZip)
             Expand-Archive -LiteralPath $outputZip -DestinationPath $outputDir -Force
       - run:
-          name: Installing Boost
-          command: |
-            $global:ProgressPreference = 'SilentlyContinue'
-            $url = "https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip"
-            $outputDir = (Get-Item -Path ".\").FullName
-            $outputZip = $outputDir + "\boost_1_72_0.zip"
-            (New-Object System.Net.WebClient).DownloadFile($url, $outputZip)
-            Expand-Archive -LiteralPath $outputZip -DestinationPath $outputDir -Force
-      - run:
           name: Creating Build Files - Shared Lib
           command: |
             $boostDir = (Get-Item -Path ".\").FullName + "\boost_1_72_0\"
@@ -62,9 +53,18 @@ jobs:
             $env:Path += ";" + (Get-Item -Path ".\").FullName + "\cmake-" + $cmakeVersion + "-win64-x64\bin"
             cd .\svg-native-viewer
             $absCurDir = (Get-Item -Path ".\").FullName
-            $path_skia = (Join-Path $absCurDir "..\third_party\skia\out\Shared\skia.dll.lib")
+            $path_skia = (Join-Path $absCurDir "third_party\skia\out\Shared\skia.dll.lib")
             cd .\svgnative
-            cmake -Bbuild/win-shared . -G "Visual Studio 16 2019" -DGDIPLUS=ON -DSKIA=ON -DSHARED=ON -DSKIA_LIBRARY_PATH=$path_skia
+            cmake -Bbuild/win-shared . -G "Visual Studio 16 2019" -DGDIPLUS=ON -DSKIA=ON -DSHARED=ON -DSKIA_LIBRARY_PATH="$path_skia"
+      - run:
+          name: Installing Boost
+          command: |
+            $global:ProgressPreference = 'SilentlyContinue'
+            $url = "https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip"
+            $outputDir = (Get-Item -Path ".\").FullName
+            $outputZip = $outputDir + "\boost_1_72_0.zip"
+            (New-Object System.Net.WebClient).DownloadFile($url, $outputZip)
+            Expand-Archive -LiteralPath $outputZip -DestinationPath $outputDir -Force
       - run:
           name: Creating Binary Files - Shared Lib
           command: |
