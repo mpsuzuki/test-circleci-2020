@@ -39,7 +39,7 @@ jobs:
             $absCurDir = (Get-Item -Path ".\").FullName
             $url1 = "https://home.hiroshima-u.ac.jp/mpsuzuki/boost-1.72.0_required-by-svg-native-viewer.7z"
             $save1 = (Join-Path $absCurDir "boost-1.72.0_required-by-svg-native-viewer.7z")
-            (New-Object System.Net.WebClient).DownloadFile($url, $save1)
+            (New-Object System.Net.WebClient).DownloadFile($url1, $save1)
             .\7za.exe x boost-1.72.0_required-by-svg-native-viewer.7z
             dir
             mv boost_1_72_0 svg-native-viewer
