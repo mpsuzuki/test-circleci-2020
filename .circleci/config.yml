@@ -55,7 +55,7 @@ jobs:
             (New-Object System.Net.WebClient).DownloadFile($url, $outputZip)
             Expand-Archive -LiteralPath $outputZip -DestinationPath $outputDir -Force
       - run:
-          name: Creating Build Files - Shared Lib
+          name: Creating Build Files - DLL
           command: |
             cd .\svg-native-viewer
             $boostDir = (Get-Item -Path ".\").FullName + "\boost_1_72_0\"
@@ -68,7 +68,7 @@ jobs:
             cd .\svgnative
             cmake -Bbuild/win-shared . -G "Visual Studio 16 2019" -DGDIPLUS=ON -DSKIA=ON -DSHARED=ON -DSKIA_LIBRARY_PATH="$path_skia"
       - run:
-          name: Creating Binary Files - Shared Lib
+          name: Creating Binary Files - DLL
           command: |
             cd .\svg-native-viewer
             $boostDir = (Get-Item -Path ".\").FullName + "\boost_1_72_0\"
@@ -78,6 +78,30 @@ jobs:
             $env:Path += ";" + (Get-Item -Path ".\").FullName + "\cmake-" + $cmakeVersion + "-win64-x64\bin"
             cd .\svgnative
             cmake --build build/win-shared
+      - run:
+          name: Creating Build Files - Shared Lib
+          command: |
+            cd .\svg-native-viewer
+            $boostDir = (Get-Item -Path ".\").FullName + "\boost_1_72_0\"
+            $env:BOOST_INCLUDEDIR = $boostDir
+            $env:BOOST_ROOT = $boostDir + "boost"
+            $cmakeVersion = "3.16.2"
+            $env:Path += ";" + (Get-Item -Path ".\").FullName + "\cmake-" + $cmakeVersion + "-win64-x64\bin"
+            $absCurDir = (Get-Item -Path ".\").FullName
+            $path_skia = (Join-Path $absCurDir "third_party\skia\out\Shared\skia.dll.lib")
+            cd .\svgnative
+            cmake -Bbuild/win-static . -G "Visual Studio 16 2019" -DGDIPLUS=ON -DSKIA=ON -DSKIA_LIBRARY_PATH="$path_skia"
+      - run:
+          name: Creating Binary Files - Shared Lib
+          command: |
+            cd .\svg-native-viewer
+            $boostDir = (Get-Item -Path ".\").FullName + "\boost_1_72_0\"
+            $env:BOOST_INCLUDEDIR = $boostDir
+            $env:BOOST_ROOT = $boostDir + "boost"
+            $cmakeVersion = "3.16.2"
+            $env:Path += ";" + (Get-Item -Path ".\").FullName + "\cmake-" + $cmakeVersion + "-win64-x64\bin"
+            cd .\svgnative
+            cmake --build build/win-static
 #
 #  build_linux:
 #    docker:
