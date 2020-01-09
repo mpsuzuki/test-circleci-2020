@@ -77,7 +77,7 @@ jobs:
             $cmakeVersion = "3.16.2"
             $env:Path += ";" + (Get-Item -Path ".\").FullName + "\cmake-" + $cmakeVersion + "-win64-x64\bin"
             cd .\svgnative
-            cmake --build build/win-shared
+            cmake --build build/win-shared --config Release
       - run:
           name: Creating Build Files - Static Lib but Skia is DLL
           command: |
@@ -101,7 +101,7 @@ jobs:
             $cmakeVersion = "3.16.2"
             $env:Path += ";" + (Get-Item -Path ".\").FullName + "\cmake-" + $cmakeVersion + "-win64-x64\bin"
             cd .\svgnative
-            cmake --build build/win-static
+            cmake --build build/win-static --config Release
       - run:
           name: Creating Build Files - Static Lib + Static Skia
           command: |
@@ -125,7 +125,7 @@ jobs:
             $cmakeVersion = "3.16.2"
             $env:Path += ";" + (Get-Item -Path ".\").FullName + "\cmake-" + $cmakeVersion + "-win64-x64\bin"
             cd .\svgnative
-            cmake --build build/win-static-skia
+            cmake --build build/win-static-skia --config Release
 #
 #  build_linux:
 #    docker:
